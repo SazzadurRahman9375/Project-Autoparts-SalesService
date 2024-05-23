@@ -297,15 +297,15 @@ namespace APSS.Lib.Models
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product { ProductId = 1, ProductName = "Brake pad", Price=1200.00M, ProductCategoryId=1, ShortDescription="Smooth Brakes"  },
-                new Product { ProductId = 2, ProductName = "Sports Helmet", Price = 1800.00M, ProductCategoryId = 2, ShortDescription = "High quality material" }
+                new Product { ProductId = 2, ProductName = "Sports Helmet", Price = 1800.00M, ProductCategoryId = 4, ShortDescription = "High quality material" }
                 );
             modelBuilder.Entity<ProductDetail>().HasData(
                  new ProductDetail { ProductDetailId=1, Label="Manufacturer", Value="Japan",ProductId=1},
                  new ProductDetail { ProductDetailId = 2, Label = "Weight", Value = "500gm", ProductId = 2 }
                 );
             modelBuilder.Entity<ProductPicture>().HasData(
-                new ProductPicture { ProductId = 1, ProductPictureId = 1, Picture = "1.jpeg" },
-                new ProductPicture { ProductId = 2, ProductPictureId = 2, Picture = "2.jpeg" }
+                new ProductPicture { ProductId = 1, ProductPictureId = 1, Picture = "brakepad.jpeg" },
+                new ProductPicture { ProductId = 2, ProductPictureId = 2, Picture = "helmet.jpeg" }
                 );
 
             modelBuilder.Entity<ServiceType>().HasData(

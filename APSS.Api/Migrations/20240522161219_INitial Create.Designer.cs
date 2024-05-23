@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APSS.Api.Migrations
 {
     [DbContext(typeof(AutoPartsDbContext))]
-    [Migration("20240520151021_INitial create")]
-    partial class INitialcreate
+    [Migration("20240522161219_INitial Create")]
+    partial class INitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -335,7 +335,7 @@ namespace APSS.Api.Migrations
                         {
                             ProductId = 2,
                             Price = 1800.00m,
-                            ProductCategoryId = 2,
+                            ProductCategoryId = 4,
                             ProductName = "Sports Helmet",
                             ShortDescription = "High quality material"
                         });
@@ -470,13 +470,13 @@ namespace APSS.Api.Migrations
                         new
                         {
                             ProductPictureId = 1,
-                            Picture = "1.jpeg",
+                            Picture = "brakepad.jpeg",
                             ProductId = 1
                         },
                         new
                         {
                             ProductPictureId = 2,
-                            Picture = "2.jpeg",
+                            Picture = "helmet.jpeg",
                             ProductId = 2
                         });
                 });

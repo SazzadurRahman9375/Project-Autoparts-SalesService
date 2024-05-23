@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APSS.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4656e6890ca9f66af01c75b9c7ef4092481cb6f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("APSS.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APSS.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

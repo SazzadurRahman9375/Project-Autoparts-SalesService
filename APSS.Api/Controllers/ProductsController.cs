@@ -97,25 +97,61 @@ namespace APSS.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
+            //if (id != product.ProductId)
+            //{
+            //    return BadRequest();
+            //}
+
+
+
+            //var p = _context.Products.Include(x=>x.ProductDetails).FirstOrDefault(x => x.ProductId == id);
+            //p.ProductName = product.ProductName;
+            //p.ShortDescription = product.ShortDescription;
+            //p.Price = product.Price;
+            //p.ProductCategoryId = product.ProductCategoryId;
+            //p.ProductDetails.Clear();
+            //foreach(var pd in product.ProductDetails)
+            //{
+            //    p.ProductDetails.Add(pd);
+            //}
+
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!ProductExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            //return NoContent();
             if (id != product.ProductId)
             {
                 return BadRequest();
             }
-
-
-
-            var p = _context.Products.Include(x=>x.ProductDetails).FirstOrDefault(x => x.ProductId == id);
-            p.ProductName = product.ProductName;
-            p.ShortDescription = product.ShortDescription;
-            p.Price = product.Price;
-            p.ProductCategoryId = product.ProductCategoryId;
-            p.ProductDetails.Clear();
-            foreach(var pd in product.ProductDetails)
+            var p = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+            if (p == null)
             {
-                p.ProductDetails.Add(pd);
+                return NotFound();
             }
-
-
+            p.ProductName = product.ProductName;
+            p.Price = product.Price;
+            p.ShortDescription = product.ShortDescription;
+            p.ProductCategoryId = product.ProductCategoryId;
+            int n = _context.Database.ExecuteSqlInterpolated($"DELETE FROM ProductDetails WHERE ProductId={p.ProductId}");
+            //_context.Entry(product).State = EntityState.Modified;
+            foreach (var d in product.ProductDetails)
+            {
+                _context.ProductDetails.Add(new ProductDetail { ProductId = p.ProductId, Label = d.Label, Value = d.Value });
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -133,6 +169,7 @@ namespace APSS.Api.Controllers
             }
 
             return NoContent();
+
         }
 
         // POST: api/Products

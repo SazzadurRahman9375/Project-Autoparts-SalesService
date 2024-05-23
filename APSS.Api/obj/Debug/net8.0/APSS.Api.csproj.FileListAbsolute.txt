@@ -1333,6 +1333,7 @@ F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.A
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.csproj.CoreCompileInputs.cache
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.MvcApplicationPartsAssemblyInfo.cs
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.MvcApplicationPartsAssemblyInfo.cache
+F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.sourcelink.json
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\staticwebassets.build.json
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\staticwebassets.development.json
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\staticwebassets\msbuild.APSS.Api.Microsoft.AspNetCore.StaticWebAssets.props

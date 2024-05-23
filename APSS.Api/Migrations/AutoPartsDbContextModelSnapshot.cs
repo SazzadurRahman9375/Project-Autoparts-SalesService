@@ -332,7 +332,7 @@ namespace APSS.Api.Migrations
                         {
                             ProductId = 2,
                             Price = 1800.00m,
-                            ProductCategoryId = 2,
+                            ProductCategoryId = 4,
                             ProductName = "Sports Helmet",
                             ShortDescription = "High quality material"
                         });
@@ -467,13 +467,13 @@ namespace APSS.Api.Migrations
                         new
                         {
                             ProductPictureId = 1,
-                            Picture = "1.jpeg",
+                            Picture = "brakepad.jpeg",
                             ProductId = 1
                         },
                         new
                         {
                             ProductPictureId = 2,
-                            Picture = "2.jpeg",
+                            Picture = "helmet.jpeg",
                             ProductId = 2
                         });
                 });

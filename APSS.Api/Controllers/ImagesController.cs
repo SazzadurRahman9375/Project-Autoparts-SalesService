@@ -54,6 +54,21 @@ namespace APSS.Api.Controllers
             }
 
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteImage(int id)
+        {
+            var img = await _context.ProductPictures.FirstOrDefaultAsync(x => x.ProductPictureId == id);
+            if (img == null)
+            {
+                return NotFound();
+            }
+
+            _context.ProductPictures.Remove(img);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
 
 
         private async Task<ProductPicture> DoAdd(string f, Product p)

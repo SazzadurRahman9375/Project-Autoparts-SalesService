@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace APSS.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class INitialcreate : Migration
+    public partial class INitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -485,7 +485,7 @@ namespace APSS.Api.Migrations
                 values: new object[,]
                 {
                     { 1, 1200.00m, 1, "Brake pad", "Smooth Brakes" },
-                    { 2, 1800.00m, 2, "Sports Helmet", "High quality material" }
+                    { 2, 1800.00m, 4, "Sports Helmet", "High quality material" }
                 });
 
             migrationBuilder.InsertData(
@@ -530,8 +530,8 @@ namespace APSS.Api.Migrations
                 columns: new[] { "ProductPictureId", "Picture", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, "1.jpeg", 1 },
-                    { 2, "2.jpeg", 2 }
+                    { 1, "brakepad.jpeg", 1 },
+                    { 2, "helmet.jpeg", 2 }
                 });
 
             migrationBuilder.InsertData(

@@ -25,6 +25,9 @@ import {
   import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
   import ExpandLessIcon from "@mui/icons-material/ExpandLess";
   import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+  import HomeIcon from '@mui/icons-material/Home';
+  import CategoryIcon from '@mui/icons-material/Category';
+  import ListIcon from '@mui/icons-material/List';
   
   function NavBarComponent() {
     const [open, setOpen] = useState(false);
@@ -97,15 +100,15 @@ import {
             >
               <ListItemButton component='a' href="/">
                 <ListItemIcon>
-                  <DirectionsBikeIcon />
+                  <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary="Sent mail" />
+                <ListItemText primary="Home" />
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton component='a' href="/Categories" >
                 <ListItemIcon>
-                  <LibraryBooksIcon />
+                  <CategoryIcon />
                 </ListItemIcon>
-                <ListItemText primary="Drafts" />
+                <ListItemText primary="Product Category" />
               </ListItemButton>
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
@@ -118,7 +121,7 @@ import {
                 <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }} href="/Bikes">
                     <ListItemIcon>
-                      <MopedIcon />
+                      <ListIcon />
                     </ListItemIcon>
                     <ListItemText primary="Part List" />
                   </ListItemButton>

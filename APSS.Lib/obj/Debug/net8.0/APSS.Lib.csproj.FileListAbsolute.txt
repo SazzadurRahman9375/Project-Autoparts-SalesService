@@ -58,6 +58,7 @@ F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.G
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.AssemblyInfoInputs.cache
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.AssemblyInfo.cs
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.csproj.CoreCompileInputs.cache
+F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.sourcelink.json
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.dll
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\refint\APSS.Lib.dll
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.pdb

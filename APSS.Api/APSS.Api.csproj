@@ -27,8 +27,4 @@
     <ProjectReference Include="..\APSS.Lib\APSS.Lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
-  </ItemGroup>
-
 </Project>
