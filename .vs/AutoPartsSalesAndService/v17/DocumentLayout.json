@@ -69,23 +69,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Program.cs",
-              "RelativeDocumentMoniker": "APSS.Api\\Program.cs",
-              "ToolTip": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Program.cs",
-              "RelativeToolTip": "APSS.Api\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T16:14:17.501Z"
             },
             {
               "$type": "Document",
@@ -104,6 +92,31 @@
               "ToolTip": "dbo.ProductCategories [Data]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
               "WhenOpened": "2024-05-21T15:22:47.262Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "APSS.Api\\Controllers\\ProductsController.cs",
+              "ToolTip": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "APSS.Api\\Controllers\\ProductsController.cs",
+              "ViewState": "AQIAANMAAAAAAAAAAAAcwMEAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-12T03:23:57.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Program.cs",
+              "RelativeDocumentMoniker": "APSS.Api\\Program.cs",
+              "ToolTip": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Program.cs",
+              "RelativeToolTip": "APSS.Api\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-22T16:14:17.501Z"
             },
             {
               "$type": "Document",
@@ -128,19 +141,6 @@
               "ViewState": "AQIAAFEAAAAAAAAAAAAmwG4AAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-09T14:48:15.546Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "APSS.Api\\Controllers\\ProductsController.cs",
-              "ToolTip": "F:\\FinalProjectIDB\\AutoPartsSalesAndService\\APSS.Api\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "APSS.Api\\Controllers\\ProductsController.cs",
-              "ViewState": "AQIAAJcAAAAAAAAAAAAuwKoAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T03:23:57.23Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

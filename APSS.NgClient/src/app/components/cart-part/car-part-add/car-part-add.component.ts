@@ -79,7 +79,7 @@ handleFileInputChange(event:any): void {
     this.imagesForm.controls["images"].patchValue(`${f.name}${count}`);
     //this.file_list = [];
     for (let i = 0; i < this.filestore.length; i++) {
-      
+                    
       this.file_list.push(this.filestore[i].name);
       this.fileArray.push(this.filestore[i]);
     }

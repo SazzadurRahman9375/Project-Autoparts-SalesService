@@ -221,6 +221,13 @@ namespace APSS.Api.Controllers
             }).ToList();
             return data;
         }
+        [HttpGet("Pictures/{id}")]
+        public async Task<ActionResult<IEnumerable<ProductPicture>>> GetPictures(int id)
+        {
+            var data = await _context.ProductPictures.Where(x => x.ProductId == id).ToListAsync();
+            return data;
+        }
+
 
         private bool ProductExists(int id)
         {

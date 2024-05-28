@@ -35,3 +35,10 @@ export async function updateProduct(id, data){
     console.log(data)
     return await axios.put(`${apiUrl}/api/Products/${id}`, data); 
 }
+export async function getProductPicures(id){
+    return await axios.get(`${apiUrl}/api/Products/Pictures/${id}`);
+}
+export async function deleteProduct(id){
+    //console.log('delp', id);
+    return await axios.delete(`${apiUrl}/api/Products/${id}`);  
+}

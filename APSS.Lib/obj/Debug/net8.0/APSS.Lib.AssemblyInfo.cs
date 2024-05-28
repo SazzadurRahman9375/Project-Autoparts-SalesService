@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APSS.Lib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4656e6890ca9f66af01c75b9c7ef4092481cb6f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9467bf5be061c05dfe051a5b585b6338d93c0fcd")]
 [assembly: System.Reflection.AssemblyProductAttribute("APSS.Lib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APSS.Lib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

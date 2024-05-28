@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
-import { getBikeDetails, getBikeDtos } from "../services/ProductService";
+import { deleteProduct, getBikeDetails, getBikeDtos } from "../services/ProductService";
 import MUIDataTable from "mui-datatables";
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { apiUrl } from "../models/app-constants";
 import "./ProductList.css"
-import { Button, Dialog, DialogActions, DialogTitle, Fab, Icon, IconButton } from "@mui/material";
-import { blueGrey, green } from "@mui/material/colors";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, IconButton, Snackbar } from "@mui/material";
+import { green } from "@mui/material/colors";
+
+
 const ProductList = () => {
+ 
   const [bikes, setBikes] = useState([]);
   const [details, setDetails]= useState([]);
   const [detailOpen, setDetailOpen] = useState(false)
+  const [alertOpen, setAlertOpen] = useState(false)
+  const [delId, setDelId] = useState('');
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [message, setMessage] = useState("");
   useEffect(() => {
     fetchBikes();
   }, []);
@@ -21,6 +29,7 @@ const ProductList = () => {
       setBikes(data);
     } catch (e) {
       console.log(e);
+      
     }
   };
   const fetchBikeDeatils =async (id)=>{
@@ -42,6 +51,33 @@ const ProductList = () => {
   const handleClose = () => {
     setDetailOpen(false);
   };
+  const handleAlretClose = ()=>{
+    setAlertOpen(false)
+  }
+  const handleYes = ()=>{
+    doDeleteProduct();
+  }
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+  const doDeleteProduct = async ()=>{
+    try
+    {
+      console.log(delId);
+      const {res} = await deleteProduct(delId);
+      const b = bikes.filter(x=> x.productId == delId);
+      console.log(b);
+      setBikes(b);
+      setDelId('');
+      setAlertOpen(false);
+      setMessage('Product deleted');
+      setNotificationOpen(true);
+    }
+    catch(e){
+      console.log(e);
+    }
+    
+  }
   const columns = [
     {
       name: "productPicture",
@@ -83,7 +119,6 @@ const ProductList = () => {
         sort: true,
       },
     },
-
     {
       name: "shortDescription",
       label: "Short Description",
@@ -100,7 +135,7 @@ const ProductList = () => {
             sort: false,
             customBodyRender: (value,tableMeta, updateValue)=>{
                 return (
-                    <Button onClick={()=>showDetailClick(value)} variant="text">Details</Button>
+                    <Button onClick={()=>showDetailClick(value)} variant="text">Sale</Button>
                 )
             }
           },
@@ -121,6 +156,23 @@ const ProductList = () => {
         }
       },
 
+    },    {
+      name: 'productId',
+      label: 'Delete',
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value,tableMeta, updateValue)=>{
+            return (
+                <IconButton color="warning"
+                onClick={()=> {
+                  setDelId(value);
+                  setAlertOpen(true)
+                }}
+                  ><DeleteIcon /></IconButton>
+            )
+        }
+      },
     }
   ];
   const detailsColumns=[
@@ -146,10 +198,11 @@ const ProductList = () => {
       <MUIDataTable title={"Bike List"} data={bikes} columns={columns}
       options={{
         selectableRows: false, hover: false,
-        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/bike-create" color="primary"><AddIcon sx={{mr:1}} /> Add New</Fab>,
+        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/bike-create" color="primary"><AddIcon sx={{mr:1}}/> Add New</Fab>,
 
       }}
        />
+      
       <Dialog open={detailOpen} fullWidth={true}>
         <DialogTitle>Parts details</DialogTitle>
         <MUIDataTable title={'Details'} columns={detailsColumns} data={details}
@@ -162,6 +215,34 @@ const ProductList = () => {
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
+      <Dialog
+        open={alertOpen}
+        onClose={handleAlretClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete item?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure to delete this item?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleAlretClose}>No</Button>
+          <Button onClick={handleYes} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar
+        open={notificationOpen}
+        autoHideDuration={2000}
+        message={message}
+        action={"DISMISS"}
+        onClose={handleNotificationClose}
+      />
     </>
   );
   }

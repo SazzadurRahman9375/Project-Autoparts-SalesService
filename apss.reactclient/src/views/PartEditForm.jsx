@@ -17,8 +17,6 @@ import {
 import { apiUrl } from "../models/app-constants";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import SaveAltTwoToneIcon from '@mui/icons-material/SaveAltTwoTone';
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import { useEffect, useState, useRef } from "react";
 import * as Yup from "yup";
@@ -31,9 +29,9 @@ import {
   deletePicture,
   uploadProductImages,
   updateProduct,
+  getProductPicures,
 } from "../services/ProductService";
 import { useParams } from "react-router-dom";
-import { red } from "@mui/material/colors";
 const PartEditForm = () => {
   //States
   ////////////////////////////////////////////////
@@ -42,7 +40,7 @@ const PartEditForm = () => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [part, setPart] = useState([]);
-
+  const [pictures, setPictures] = useState([]);
   //Route params
   /////////////////////////////////
   const { id } = useParams();
@@ -85,13 +83,17 @@ const PartEditForm = () => {
     console.log(data);
   };
   const fetchPart = async () => {
-    console.log(id);
+   // console.log(id);
 
     const { data } = await getPartById(id);
     setPart(data);
+    setPictures(data.productPictures);
     console.log("part ", data);
   };
-
+  const fetchPictures = async (id)=>{
+    const {data}= await getProductPicures(id);
+    setPictures(data);
+  }
   //Handlers
   ////////////////////////////////////
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -114,9 +116,12 @@ const PartEditForm = () => {
       productCategoryId: values.productCategoryId,
       productDetails: [...values.productDetails],
     });
+    fetchPictures(part.productId);
+    //setPart(part);
     //console.log(data);
     if(seletedFiles && seletedFiles.length> 0){
-        uploadFiles(part.productId, resetForm)
+        uploadFiles(part.productId, resetForm);
+        
     }
     else{
         setMessage("Data saved successfully");
@@ -142,10 +147,7 @@ const PartEditForm = () => {
       await deletePicture(id);
       setMessage("Picture deleted");
       setNotificationOpen(true);
-      const i = part.productPictures.findIndex((p) => p.productPictureId == id);
-      if (i >= 0) {
-        part.productPictures = part.productPictures.splice(i, 1);
-      }
+      fetchPictures(part.productId);
     } catch (e) {
       setMessage("Failed to delete picture");
       setNotificationOpen(true);
@@ -277,7 +279,7 @@ const PartEditForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <List dense={true}>
-                    {part.productPictures?.map((p, index) => {
+                    {pictures.map((p, index) => {
                       console.log("pcic", p.picture);
                       return (
                         <ListItem
@@ -290,7 +292,7 @@ const PartEditForm = () => {
                               }
                               aria-label="delete"
                             >
-                              <DeleteForeverTwoToneIcon sx={{ color:red[500] }}  />
+                              <DeleteIcon />
                             </IconButton>
                           }
                         >
@@ -371,7 +373,7 @@ const PartEditForm = () => {
                                 <IconButton
                                   onClick={() => arrayHelpers.remove(index)}
                                 >
-                                  <DeleteIcon sx={{ color:red[500] }} />
+                                  <DeleteIcon />
                                 </IconButton>
                               </Grid>
                             </Grid>
@@ -387,8 +389,7 @@ const PartEditForm = () => {
                   style={{ justifyContent: "flex-end", display: "flex" }}
                 >
                   <Button type="submit" color="primary" variant="contained">
-                  <SaveAltTwoToneIcon sx={{ mr: 0.5 }} />
-                    Save
+                    Submit
                   </Button>
                 </Grid>
                 <Grid

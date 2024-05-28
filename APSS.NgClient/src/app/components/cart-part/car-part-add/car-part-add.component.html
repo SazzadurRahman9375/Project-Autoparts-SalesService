@@ -7,8 +7,8 @@
       <span class="filler"></span>
       
     </mat-card-header>
-    <mat-card-content>
-      <mat-tab-group mat-align-tabs="start">
+    <mat-card-content class="myClass">
+      <mat-tab-group mat-align-tabs="start" >
           <mat-tab label="Product Details">
               <form [formGroup]="productForm" class=" medium-form-container"  (ngSubmit)="save()" >
                   <mat-form-field class="f-w" >
