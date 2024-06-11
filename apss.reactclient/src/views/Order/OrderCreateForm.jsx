@@ -4,7 +4,6 @@ import {
   FormHelperText,
   Grid,
   IconButton,
-  InputAdornment,
   MenuItem,
   Snackbar,
   TextField,
@@ -15,48 +14,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import { useEffect, useState, useRef } from "react";
 import * as Yup from "yup";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import "./ProductList.css";
-import {
-  getCategories,
-  postBike,
-  uploadProductImages,
-} from "../services/ProductService";
-const BikeCreateForm = () => {
+import { getCustomers, postOrder, getProducts } from "../../services/OrderService";
+const OrderCreateForm = () => {
   //States
   ////////////////////////////////////////////////
-  const [seletedFiles, seteSelectedFiles] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [products, setProducts] = useState([]);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [message, setMessage] = useState("");
   //Form validation & initial values
   ///////////////////////////////////////////////
   const validationSchema = Yup.object({
-    productName: Yup.string().required("Product name is requred"),
-    price: Yup.number().required("Price is required"),
-    shortDescription: Yup.string().required("Short description is requred"),
-    productCategoryId: Yup.number().required("Category is required"),
-    picture: Yup.array(Yup.string().required("Picture is required")).min(
-      1,
-      "One picture required"
-    ),
-    productDetails: Yup.array().of(
+    orderDate: Yup.date().required("Order date is requred"),
+    customerId: Yup.number().required("Customer is required"),
+    orderDetails: Yup.array().of(
       Yup.object().shape({
-        label: Yup.string().required("Label is required"),
-        value: Yup.string().required("Value is required"),
+        productId: Yup.number().required("Product name is required"),
+        quantity: Yup.number().required("quantity is required"),
       })
     ),
   });
   const initialValues = {
-    productName: "",
-    price: "",
-    shortDescription: "",
-    productCategoryId: "",
-    picture: [""],
-    productDetails: [
+    orderDate: "",
+    customerId: "",
+    orderDetails: [
       {
-        label: "",
-        value: "",
+        productId: "",
+        quantity: "",
       },
     ],
   };
@@ -66,57 +50,38 @@ const BikeCreateForm = () => {
   // Data hooks
   //////////////////////////////////////////
   useEffect(() => {
-    fetchCategories();
+    fetchserviceTypes();
+    fetchProducts();
   }, []);
-  const fetchCategories = async () => {
-    const { data } = await getCategories();
-    setCategories(data);
+  const fetchserviceTypes = async () => {
+    const { data } = await getCustomers();
+    setCustomers(data);
     console.log(data);
   };
+
+  const fetchProducts = async () => {
+    const { data } = await getProducts();
+    setProducts(data);
+    console.log(data);
+  };
+
   //Handlers
   ////////////////////////////////////
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     // console.log(values);
     let part = {
-      productName: values.productName,
-      price: values.price,
-      productCategoryId: values.productCategoryId,
-      shortDescription: values.shortDescription,
-      productDetails: [...values.productDetails],
+      customerId: values.customerId,
+      orderDate: values.orderDate,
+
+      orderDetails: [...values.orderDetails],
     };
     console.log(part);
-    const { data } = await postBike(part);
-    uploadFiles(data.productId, resetForm);
-  };
-  const uploadFiles = async (id, resetForm) => {
-    //console.log(id);
-    const { data } = await uploadProductImages(id, seletedFiles);
-    console.log(data);
+    const { data } = await postOrder(part);
     resetForm();
     setMessage("Data saved successfully");
     setNotificationOpen(true);
-    seteSelectedFiles([]);
   };
 
-  const onFilechange = (e, sf) => {
-    /*Selected files data can be collected here.*/
-    console.log(e.target.files);
-
-    let f = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      f.push(e.target.files[i].name);
-    }
-    console.log(f);
-    seteSelectedFiles(e.target.files);
-    sf("picture", f);
-  };
-  const getPicFieldValue = () => {
-    let fn =
-      seletedFiles.length > 0 && seletedFiles.length > 1
-        ? " +[" + (seletedFiles.length - 1) + "]"
-        : "";
-    return seletedFiles.length > 0 ? seletedFiles[0].name + fn : "";
-  };
   const handleClose = () => {
     setNotificationOpen(false);
   };
@@ -132,37 +97,18 @@ const BikeCreateForm = () => {
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Typography variant="h3">Parts form</Typography>
+                  <Typography variant="h3">Order form</Typography>
                 </Grid>
 
                 <Grid item xs={6}>
                   <Field
                     as={TextField}
                     fullWidth={true}
-                    name="productName"
-                    label="Product Name"
+                    name="orderDate"
+                    placeholder="Order Date"
+                    type="date"
                     variant="standard"
-                    helperText={<ErrorMessage name="productName" />}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Field
-                    as={TextField}
-                    fullWidth={true}
-                    name="price"
-                    label="Price"
-                    variant="standard"
-                    helperText={<ErrorMessage name="price" />}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Field
-                    as={TextField}
-                    fullWidth={true}
-                    name="shortDescription"
-                    label="Short Description"
-                    variant="standard"
-                    helperText={<ErrorMessage name="shortDescription" />}
+                    helperText={<ErrorMessage name="orderDate" />}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -170,53 +116,26 @@ const BikeCreateForm = () => {
                   <Field
                     as={TextField}
                     fullWidth={true}
-                    name="productCategoryId"
-                    label="Category"
+                    name="customerId"
+                    label="Customer Name"
                     variant="standard"
                     select
-                    onChange={(e) =>
-                      (values.productCategoryId = e.target.value)
-                    }
+                    onChange={(e) => (values.customerId = e.target.value)}
                   >
-                    {categories.map((cat, index) => {
+                    {customers.map((cat, index) => {
                       return (
-                        <MenuItem key={index} value={cat.productCategoryId}>
-                          {cat.productCategoryName}
+                        <MenuItem key={index} value={cat.customerId}>
+                          {cat.customerName}
                         </MenuItem>
                       );
                     })}
                   </Field>
                   <FormHelperText>
-                    <ErrorMessage name="productCategoryId" />
+                    <ErrorMessage name="customerId" />
                   </FormHelperText>
                 </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    as={TextField}
-                    fullWidth={true}
-                    name="picture"
-                    label="Pictures"
-                    value={getPicFieldValue()}
-                    helperText={<ErrorMessage name="picture" />}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <IconButton
-                            onClick={() => {
-                              fileInputRef.current.click();
-                              setFieldValue("picture", "a");
-                            }}
-                          >
-                            <AttachFileIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                </Grid>
 
-                <FieldArray name="productDetails">
+                <FieldArray name="orderDetails">
                   {(arrayHelpers) => {
                     return (
                       <>
@@ -234,14 +153,17 @@ const BikeCreateForm = () => {
                               variant="contained"
                               startIcon={<AddIcon />}
                               onClick={() =>
-                                arrayHelpers.push({ label: "", value: "" })
+                                arrayHelpers.push({
+                                  quantity: "",
+                                  productId: "",
+                                })
                               }
                             >
                               Add
                             </Button>
                           </div>
                         </Grid>
-                        {values.productDetails.map((pd, index) => {
+                        {values.orderDetails.map((pd, index) => {
                           return (
                             <Grid
                               container
@@ -249,30 +171,48 @@ const BikeCreateForm = () => {
                               spacing={4}
                               paddingLeft={2}
                             >
+                                                            <Grid item xs={6}>
+                                <Field
+                                  as={TextField}
+                                  fullWidth={true}
+                                  name={`orderDetails.${index}.productId`}
+                                  label="Product"
+                                  variant="standard"
+                                  select
+                                  onChange={(e) =>
+                                    (values.orderDetails[index].productId =
+                                      e.target.value)
+                                  }
+                                >
+                                  {products.map((cat, index) => {
+                                    return (
+                                      <MenuItem
+                                        key={index}
+                                        value={cat.productId}
+                                      >
+                                        {cat.productName}
+                                      </MenuItem>
+                                    );
+                                  })}
+                                </Field>
+                                <FormHelperText>
+                                  <ErrorMessage
+                                    name={`orderDetails.${index}.productId`}
+                                  />
+                                </FormHelperText>
+                              </Grid>
+
                               <Grid item xs={5}>
                                 <Field
                                   as={TextField}
                                   fullWidth={true}
-                                  name={`productDetails.${index}.label`}
-                                  label="Label"
+                                  name={`orderDetails.${index}.quantity`}
+                                  label="Quantity"
+                                  type="number"
                                   variant="standard"
                                   helperText={
                                     <ErrorMessage
-                                      name={`productDetails.${index}.label`}
-                                    />
-                                  }
-                                />
-                              </Grid>
-                              <Grid item xs={6}>
-                                <Field
-                                  as={TextField}
-                                  fullWidth={true}
-                                  name={`productDetails.${index}.value`}
-                                  label="Value"
-                                  variant="standard"
-                                  helperText={
-                                    <ErrorMessage
-                                      name={`productDetails.${index}.value`}
+                                      name={`orderDetails.${index}.quantity`}
                                     />
                                   }
                                 />
@@ -309,19 +249,19 @@ const BikeCreateForm = () => {
                     type="button"
                     color="primary"
                     variant="contained"
-                    href="/Bikes"
+                    href="/OrderList"
                   >
                     Back to List
                   </Button>
                 </Grid>
               </Grid>
-              <input
-                multiple
-                type="file"
-                ref={fileInputRef}
-                onChange={(e) => onFilechange(e, setFieldValue)}
-                style={{ display: "none" }}
-              />
+              {/* <input
+                  multiple
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={(e) => onFilechange(e, setFieldValue)}
+                  style={{ display: "none" }}
+                /> */}
             </Form>
           );
         }}
@@ -336,4 +276,4 @@ const BikeCreateForm = () => {
     </Container>
   );
 };
-export default BikeCreateForm;
+export default OrderCreateForm;

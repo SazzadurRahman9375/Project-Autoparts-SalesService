@@ -14,7 +14,7 @@ import {
   import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
   import { useEffect, useState, useRef } from "react";
   import * as Yup from "yup";
-import { getserviceTypes, postServiceRequest } from "../services/ServiceRequestService";
+import { getserviceTypes, postServiceRequest } from "../../services/ServiceRequestService";
 
   const ServiceRequestCreateForm = () => {
     //States
@@ -128,7 +128,9 @@ import { getserviceTypes, postServiceRequest } from "../services/ServiceRequestS
                       name="email"
                       label="Email"
                       variant="standard"
-                      helperText={<ErrorMessage name="email" />}
+                      helperText={<ErrorMessage name="email">
+                        { msg => <div style={{ color: 'red' }}>{msg}</div> }
+                    </ErrorMessage>}
                     />
                   </Grid>
                   <Grid item xs={6}>

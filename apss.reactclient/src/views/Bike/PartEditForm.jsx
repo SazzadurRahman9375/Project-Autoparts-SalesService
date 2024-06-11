@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { apiUrl } from "../models/app-constants";
+import { apiUrl } from "../../models/app-constants";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
@@ -30,7 +30,7 @@ import {
   uploadProductImages,
   updateProduct,
   getProductPicures,
-} from "../services/ProductService";
+} from "../../services/ProductService";
 import { useParams } from "react-router-dom";
 const PartEditForm = () => {
   //States

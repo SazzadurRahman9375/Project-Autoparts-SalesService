@@ -271,6 +271,9 @@ namespace APSS.Lib.Models
         public DbSet<Part> Parts { get; set; }
         public DbSet<ServiceStatus> ServiceStatus { get; set; }
         public DbSet<ServicePayment> ServicePayments { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+
         public DbSet<StockEntry> StockEntries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }

@@ -2,6 +2,7 @@
 using APSS.Lib.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace APSS.Api.Controllers
@@ -80,7 +81,7 @@ namespace APSS.Api.Controllers
                 ProductId = x.ProductId,
                 ProductName = getProduct(x.ProductId).ProductName,
                 Price = getProduct(x.ProductId).Price,
-                TotalPrice = x.Quantity* getProduct(x.ProductId).Price
+                TotalPrice = x.Quantity* getProduct(x.ProductId).Price,
 
             }).ToList();
             return data;

@@ -3,14 +3,14 @@ import MUIDataTable from "mui-datatables";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, IconButton, Snackbar,TableRow,TableCell,TableFooter } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, IconButton, Snackbar } from "@mui/material";
 import { green } from "@mui/material/colors";
-import { format } from "date-fns";
-import { getOrderDetails, getOrderDtos,deleteOrder} from "../services/OrderService";
+import { deleteServiceRequest, getServiceDetails, getServiceDtos } from "../../services/ServiceRequestService";
+import {format } from "date-fns";
 
-const OrderList = () => {
+const ServiceRequestList = () => {
  
-  const [orders, setOrders] = useState([]);
+  const [services, setServices] = useState([]);
   const [details, setDetails]= useState([]);
   const [detailOpen, setDetailOpen] = useState(false)
   const [alertOpen, setAlertOpen] = useState(false)
@@ -18,21 +18,21 @@ const OrderList = () => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [message, setMessage] = useState("");
   useEffect(() => {
-    fetchOrders();
+    fetchServices();
   }, []);
-  const fetchOrders = async () => {
+  const fetchServices = async () => {
     try {
-      const { data } = await getOrderDtos();
+      const { data } = await getServiceDtos();
       console.log(data);
-      setOrders(data);
+      setServices(data);
     } catch (e) {
       console.log(e);
       
     }
   };
-  const fetchOrderDetails =async (id)=>{
+  const fetchServiceDetails =async (id)=>{
     try {
-        const { data } = await getOrderDetails(id);
+        const { data } = await getServiceDetails(id);
         console.log(data);
         setDetails(data);
       } catch (e) {
@@ -41,7 +41,7 @@ const OrderList = () => {
   }
 
   const showDetailClick=(id)=>{
-    fetchOrderDetails(id);
+    fetchServiceDetails(id);
     setDetailOpen(true);
   }
   const handleClose = () => {
@@ -60,13 +60,13 @@ const OrderList = () => {
     try
     {
       console.log(delId);
-      const {res} = await deleteOrder(delId);
-      const b = orders.filter(x=> x.orderId == delId);
+      const {res} = await deleteServiceRequest(delId);
+      const b = services.filter(x=> x.serviceRequestId == delId);
       console.log(b);
-      setOrders(b);
+      setServices(b);
       setDelId('');
       setAlertOpen(false);
-      setMessage('Order is deleted');
+      setMessage('Service Request is deleted');
       setNotificationOpen(true);
     }
     catch(e){
@@ -77,22 +77,6 @@ const OrderList = () => {
   const columns = [
 
     {
-      name: "orderDate",
-      label: "Order Date",
-      type:"date",
-      options: {
-        filter: true,
-        sort: true,
-        customBodyRender: (value,tableMeta,updateValue) =>{
-          return(
-            <span>{format(value, "yyyy-MM-dd")}</span>
-          )
-        }
-  
-      },
-
-    },
-    {
       name: "customerName",
       label: "Customer Name",
       options: {
@@ -100,23 +84,47 @@ const OrderList = () => {
         sort: true,
       },
     },
+    {
+      name: "phone",
+      label: "Phone",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+        name: "email",
+        label: "Email",
+        options: {
+          filter: true,
+          sort: true,
+        },
+      },
+    {
+      name: "serviceName",
+      label: "Service Type",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
     
     {
-        name:'orderId',
+        name:'serviceRequestId',
         label:'Details',
         options: {
             filter: false,
             sort: false,
             customBodyRender: (value,tableMeta, updateValue)=>{
                 return (
-                    <Button onClick={()=>showDetailClick(value)} variant="text">Order Detail</Button>
+                    <Button onClick={()=>showDetailClick(value)} variant="text">Service Detail</Button>
                 )
             }
           },
 
     },
     {
-      name: 'orderId',
+      name: 'serviceRequestId',
       label: 'Edit',
       options: {
         filter: false,
@@ -124,14 +132,14 @@ const OrderList = () => {
         customBodyRender: (value,tableMeta, updateValue)=>{
             return (
                 // <Button href={`/part-edit/${value}`} color="primary"  variant="contained"><EditIcon sx={{mr:1}}/></Button>
-                <Fab sx={{ml: 1}} variant="extended" size="medium" href={`/order-edit/${value}`} ><EditIcon sx={{ color: green[700] }}/></Fab>
+                <Fab sx={{ml: 1}} variant="extended" size="medium" href={`/serviceRequest-edit/${value}`} ><EditIcon sx={{ color: green[700] }}/></Fab>
                 
             )
         }
       },
 
     },    {
-      name: 'orderId',
+      name: 'serviceRequestId',
       label: 'Delete',
       options: {
         filter: false,
@@ -151,56 +159,56 @@ const OrderList = () => {
   ];
   const detailsColumns=[
     {
-      name: "productName",
-      label: "Product Name",
-      options: {
-        filter: true,
-        sort: true,
-      },
-    }
-,
-    {
-        name: 'quantity',
-        label: 'Quantity',
+        name: 'description',
+        label: 'Description',
         options:{
             filter:true,
             sort:true
         }
     },
     {
-      name: "price",
-      label: "Price",
-      options: {
-        filter: true,
-        sort: true,
-      },
+        name: 'requestDate',
+        label: 'RequestDate',
+        type:"date",
+        options:{
+            filter:false,
+            sort:false,
+            customBodyRender: (value,tableMeta,updateValue) =>{
+              return(
+                <span>{format(value, "dd/MM/yyyy")}</span>
+              )
+            }    
+        },
     },
     {
-      name: "totalPrice",
-      label: "Total Price",
-      options: {
-        filter: true,
-        sort: true,
+        name: 'proposedServiceDate',
+        label: 'ProposedServiceDate',
+        type:"date",
+        options:{
+            filter:false,
+            sort:false,
+            customBodyRender: (value,tableMeta,updateValue) =>{
+              return(
+                <span>{format(value, "dd/MM/yyyy")}</span>
+              )
+            }
     
-      },
+        },
+
     }
-
-
-  
   ]
-
-
   return (
     <>
-      <MUIDataTable title={"Order"} data={orders} columns={columns}
+      <MUIDataTable title={"Service Request"} data={services} columns={columns}
       options={{
         selectableRows: false, hover: false,
-        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/order-create" color="primary"><AddIcon sx={{mr:1}}/> Add New</Fab>
+        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/serviceRequest-create" color="primary"><AddIcon sx={{mr:1}}/> Add New</Fab>,
+
       }}
        />
       
       <Dialog open={detailOpen} fullWidth={true}>
-        <DialogTitle>Order details</DialogTitle>
+        <DialogTitle>Service details</DialogTitle>
         <MUIDataTable title={'Details'} columns={detailsColumns} data={details}
         options={{
           selectableRows: false,
@@ -243,4 +251,4 @@ const OrderList = () => {
   );
   }
 
-export default OrderList;
+export default ServiceRequestList;

@@ -61,3 +61,4 @@ F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.d
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\refint\APSS.Lib.dll
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.pdb
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\ref\APSS.Lib.dll
+F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Lib\obj\Debug\net8.0\APSS.Lib.sourcelink.json

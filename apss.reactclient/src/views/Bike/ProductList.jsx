@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
+import { deleteProduct, getBikeDetails, getBikeDtos } from "../../services/ProductService";
 import MUIDataTable from "mui-datatables";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { apiUrl } from "../../models/app-constants";
+import "./ProductList.css"
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, IconButton, Snackbar } from "@mui/material";
 import { green } from "@mui/material/colors";
-import { deleteServiceRequest, getServiceDetails, getServiceDtos } from "../services/ServiceRequestService";
-import {format } from "date-fns";
 
-const ServiceRequestList = () => {
+
+const ProductList = () => {
  
-  const [services, setServices] = useState([]);
+  const [bikes, setBikes] = useState([]);
   const [details, setDetails]= useState([]);
   const [detailOpen, setDetailOpen] = useState(false)
   const [alertOpen, setAlertOpen] = useState(false)
@@ -18,30 +20,32 @@ const ServiceRequestList = () => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [message, setMessage] = useState("");
   useEffect(() => {
-    fetchServices();
+    fetchBikes();
   }, []);
-  const fetchServices = async () => {
+  const fetchBikes = async () => {
     try {
-      const { data } = await getServiceDtos();
+      const { data } = await getBikeDtos();
       console.log(data);
-      setServices(data);
+      setBikes(data);
     } catch (e) {
       console.log(e);
       
     }
   };
-  const fetchServiceDetails =async (id)=>{
+  const fetchBikeDeatils =async (id)=>{
     try {
-        const { data } = await getServiceDetails(id);
+        const { data } = await getBikeDetails(id);
         console.log(data);
         setDetails(data);
       } catch (e) {
         console.log(e);
       }
   }
-
+  const getPictureUrl = (pic) => {
+    return `${apiUrl}/Images/${pic}`;
+  };
   const showDetailClick=(id)=>{
-    fetchServiceDetails(id);
+    fetchBikeDeatils(id);
     setDetailOpen(true);
   }
   const handleClose = () => {
@@ -51,22 +55,22 @@ const ServiceRequestList = () => {
     setAlertOpen(false)
   }
   const handleYes = ()=>{
-    doDeleteService();
+    doDeleteProduct();
   }
   const handleNotificationClose = () => {
     setNotificationOpen(false);
   };
-  const doDeleteService = async ()=>{
+  const doDeleteProduct = async ()=>{
     try
     {
       console.log(delId);
-      const {res} = await deleteServiceRequest(delId);
-      const b = services.filter(x=> x.serviceRequestId == delId);
+      const {res} = await deleteProduct(delId);
+      const b = bikes.filter(x=> x.productId == delId);
       console.log(b);
-      setServices(b);
+      setBikes(b);
       setDelId('');
       setAlertOpen(false);
-      setMessage('Service Request is deleted');
+      setMessage('Product deleted');
       setNotificationOpen(true);
     }
     catch(e){
@@ -75,56 +79,70 @@ const ServiceRequestList = () => {
     
   }
   const columns = [
-
     {
-      name: "customerName",
-      label: "Customer Name",
+      name: "productPicture",
+      label: "Picture",
       options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: "phone",
-      label: "Phone",
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-        name: "email",
-        label: "Email",
-        options: {
-          filter: true,
-          sort: true,
+        filter: false,
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+            console.log(getPictureUrl(value))
+          return (
+           
+              <img className="circle-image" src={getPictureUrl(value)} />
+            
+          );
         },
       },
+    },
     {
-      name: "serviceName",
-      label: "Service Type",
+      name: "productName",
+      label: "Name",
       options: {
         filter: true,
         sort: true,
       },
     },
-    
     {
-        name:'serviceRequestId',
+      name: "price",
+      label: "Price",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "productCategoryName",
+      label: "Category",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "shortDescription",
+      label: "Short Description",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+        name:'productId',
         label:'Details',
         options: {
             filter: false,
             sort: false,
             customBodyRender: (value,tableMeta, updateValue)=>{
                 return (
-                    <Button onClick={()=>showDetailClick(value)} variant="text">Service Detail</Button>
+                    <Button onClick={()=>showDetailClick(value)} variant="text">Sale</Button>
                 )
             }
           },
 
     },
     {
-      name: 'serviceRequestId',
+      name: 'productId',
       label: 'Edit',
       options: {
         filter: false,
@@ -132,14 +150,14 @@ const ServiceRequestList = () => {
         customBodyRender: (value,tableMeta, updateValue)=>{
             return (
                 // <Button href={`/part-edit/${value}`} color="primary"  variant="contained"><EditIcon sx={{mr:1}}/></Button>
-                <Fab sx={{ml: 1}} variant="extended" size="medium" href={`/serviceRequest-edit/${value}`} ><EditIcon sx={{ color: green[700] }}/></Fab>
+                <Fab sx={{ml: 1}} variant="extended" size="medium" href={`/part-edit/${value}`} ><EditIcon sx={{ color: green[700] }}/></Fab>
                 
             )
         }
       },
 
     },    {
-      name: 'serviceRequestId',
+      name: 'productId',
       label: 'Delete',
       options: {
         filter: false,
@@ -159,56 +177,34 @@ const ServiceRequestList = () => {
   ];
   const detailsColumns=[
     {
-        name: 'description',
-        label: 'Description',
+        name: 'label',
+        label: 'label',
         options:{
             filter:true,
             sort:true
         }
     },
     {
-        name: 'requestDate',
-        label: 'RequestDate',
-        type:"date",
+        name: 'value',
+        label: 'VALUE',
         options:{
             filter:false,
-            sort:false,
-            customBodyRender: (value,tableMeta,updateValue) =>{
-              return(
-                <span>{format(value, "dd/MM/yyyy")}</span>
-              )
-            }    
-        },
-    },
-    {
-        name: 'proposedServiceDate',
-        label: 'ProposedServiceDate',
-        type:"date",
-        options:{
-            filter:false,
-            sort:false,
-            customBodyRender: (value,tableMeta,updateValue) =>{
-              return(
-                <span>{format(value, "dd/MM/yyyy")}</span>
-              )
-            }
-    
-        },
-
+            sort:false
+        }
     }
   ]
   return (
     <>
-      <MUIDataTable title={"Service Request"} data={services} columns={columns}
+      <MUIDataTable title={"Bike parts List"} data={bikes} columns={columns}
       options={{
         selectableRows: false, hover: false,
-        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/serviceRequest-create" color="primary"><AddIcon sx={{mr:1}}/> Add New</Fab>,
+        customToolbar: () => <Fab sx={{ml: 1}} variant="extended" size="medium" href="/bike-create" color="primary"><AddIcon sx={{mr:1}}/> Add New</Fab>,
 
       }}
        />
       
       <Dialog open={detailOpen} fullWidth={true}>
-        <DialogTitle>Service details</DialogTitle>
+        <DialogTitle>Parts details</DialogTitle>
         <MUIDataTable title={'Details'} columns={detailsColumns} data={details}
         options={{
           selectableRows: false,
@@ -251,4 +247,4 @@ const ServiceRequestList = () => {
   );
   }
 
-export default ServiceRequestList;
+export default ProductList;

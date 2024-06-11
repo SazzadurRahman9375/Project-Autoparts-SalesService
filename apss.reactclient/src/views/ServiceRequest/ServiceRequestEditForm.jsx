@@ -18,7 +18,7 @@ import {
   import {
     getserviceTypes,
     getServiceRequestById,
-    putServiceRequest  } from "../services/ServiceRequestService";
+    putServiceRequest  } from "../../services/ServiceRequestService";
   import { useParams } from "react-router-dom";
   const ServiceRequestEditForm = () => {
     //States

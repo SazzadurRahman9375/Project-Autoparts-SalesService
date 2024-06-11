@@ -27,6 +27,7 @@ import {
   import HomeIcon from '@mui/icons-material/Home';
   import CategoryIcon from '@mui/icons-material/Category';
   import ListIcon from '@mui/icons-material/List';
+  import PeopleIcon from '@mui/icons-material/People';
   import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
   import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -124,6 +125,13 @@ import {
                 </ListItemIcon>
                 <ListItemText primary="Product Category" />
               </ListItemButton>
+              <ListItemButton component='a' href="/SupplierList">
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Suppplier" />
+              </ListItemButton>
+
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
                   <DirectionsBikeIcon />

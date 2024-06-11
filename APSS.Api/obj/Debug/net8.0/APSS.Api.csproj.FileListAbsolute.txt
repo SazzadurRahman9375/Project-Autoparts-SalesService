@@ -1346,3 +1346,4 @@ F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\refint\APS
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.pdb
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.genruntimeconfig.cache
 F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\ref\APSS.Api.dll
+F:\FinalProjectIDB\AutoPartsSalesAndService\APSS.Api\obj\Debug\net8.0\APSS.Api.sourcelink.json

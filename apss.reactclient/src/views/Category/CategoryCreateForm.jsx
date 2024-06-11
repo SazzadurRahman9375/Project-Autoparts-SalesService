@@ -11,7 +11,7 @@ import {
   import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
   import { useEffect, useState, useRef } from "react";
   import * as Yup from "yup";
-  import { postCategories,getVehicleTypes } from "../services/ProductCategoryService";
+  import { postCategories,getVehicleTypes } from "../../services/ProductCategoryService";
 
   const CategoryCreateForm = () => {
 
@@ -108,7 +108,7 @@ import {
                       })}
                     </Field>
                     <FormHelperText>
-                      <ErrorMessage name="customerId" />
+                      <ErrorMessage name="vehicleTypeId" />
                     </FormHelperText>
                   </Grid>
 

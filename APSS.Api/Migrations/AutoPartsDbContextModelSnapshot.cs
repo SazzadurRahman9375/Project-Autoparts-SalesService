@@ -132,7 +132,7 @@ namespace APSS.Api.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Inventory");
+                    b.ToTable("Inventories");
 
                     b.HasData(
                         new
@@ -800,7 +800,7 @@ namespace APSS.Api.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
 
                     b.HasData(
                         new

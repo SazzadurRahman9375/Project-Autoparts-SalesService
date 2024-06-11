@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace APSS.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class INitialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,7 @@ namespace APSS.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supplier",
+                name: "Suppliers",
                 columns: table => new
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
@@ -66,7 +66,7 @@ namespace APSS.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.SupplierId);
+                    table.PrimaryKey("PK_Suppliers", x => x.SupplierId);
                 });
 
             migrationBuilder.CreateTable(
@@ -187,7 +187,7 @@ namespace APSS.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Inventory",
+                name: "Inventories",
                 columns: table => new
                 {
                     InventoryId = table.Column<int>(type: "int", nullable: false)
@@ -201,17 +201,17 @@ namespace APSS.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventory", x => x.InventoryId);
+                    table.PrimaryKey("PK_Inventories", x => x.InventoryId);
                     table.ForeignKey(
-                        name: "FK_Inventory_Products_ProductId",
+                        name: "FK_Inventories_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventory_Supplier_SupplierId",
+                        name: "FK_Inventories_Suppliers_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "Supplier",
+                        principalTable: "Suppliers",
                         principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -427,7 +427,7 @@ namespace APSS.Api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Supplier",
+                table: "Suppliers",
                 columns: new[] { "SupplierId", "CompanyName", "ContactName", "ContactNo" },
                 values: new object[,]
                 {
@@ -498,7 +498,7 @@ namespace APSS.Api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Inventory",
+                table: "Inventories",
                 columns: new[] { "InventoryId", "InventoryCode", "ProductId", "Quantity", "RetailPrice", "SupplierId", "UnitPrice" },
                 values: new object[,]
                 {
@@ -571,13 +571,13 @@ namespace APSS.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventory_ProductId",
-                table: "Inventory",
+                name: "IX_Inventories_ProductId",
+                table: "Inventories",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventory_SupplierId",
-                table: "Inventory",
+                name: "IX_Inventories_SupplierId",
+                table: "Inventories",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
@@ -669,7 +669,7 @@ namespace APSS.Api.Migrations
                 name: "CommonDetails");
 
             migrationBuilder.DropTable(
-                name: "Inventory");
+                name: "Inventories");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
@@ -690,7 +690,7 @@ namespace APSS.Api.Migrations
                 name: "StockEntries");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "Orders");
